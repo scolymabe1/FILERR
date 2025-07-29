@@ -74,11 +74,24 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = await res.json();
 
         if (data.url) {
-          h2.textContent = '✅ Файл загружен!';
-          fileLink.innerHTML = `🔗 <a href="${data.url}" target="_blank" rel="noopener noreferrer">Открыть файл</a>`;
+            h2.textContent = '✅ Файл загружен! Кликните по ссылке, чтобы скопировать.';
+            fileLink.innerHTML = `<span id="copy-link" style="cursor:pointer; color:blue; text-decoration:underline;">${data.url}</span>`;
         } else {
           throw new Error('Сервер не вернул ссылку');
         }
+        const copyLink = document.getElementById('copy-link');
+        copyLink.addEventListener('click', () => {
+            navigator.clipboard.writeText(data.url)
+            .then(() => {
+                h2.textContent = '✅ Ссылка скопирована в буфер обмена!';
+                setTimeout(() => {
+                h2.textContent = '✅ Файл загружен! Кликните по ссылке, чтобы скопировать.';
+                }, 2000);
+            })
+            .catch(() => {
+                h2.textContent = '❌ Не удалось скопировать ссылку.';
+            });
+        });
       })
       .catch(err => {
         h2.textContent = '❌ Ошибка: ' + err.message;
