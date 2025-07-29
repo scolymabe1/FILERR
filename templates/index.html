@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Загрузка файлов</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="get-file" onclick="document.getElementById('fileInput').click();">
+    <h2>Нажмите или перетащите файл</h2>
+    <input type="file" id="fileInput" style="display: none;">
+    </div>
+
+    <p id="result"></p>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

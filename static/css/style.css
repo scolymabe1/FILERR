@@ -1,0 +1,35 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    color: #FFF;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+}
+
+.get-file {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px #555 dashed ;
+    border-radius: 10px;
+    width: 30%;
+    height: 20%;
+    font-size: 14px;
+    cursor: pointer;
+}
+.get-file h2{
+    font-weight: 400;
+}
+
+.get-file:hover {
+    border-color: #888;
+}
