@@ -8,10 +8,10 @@
 <body>
     <div class="get-file" onclick="document.getElementById('fileInput').click();">
     <h2>Нажмите или перетащите файл</h2>
-    <input type="file" id="fileInput" style="display: none;">
     </div>
-
-    <p id="result"></p>
+    
+    <input type="file" id="fileInput" style="display: none;">
+    <p id="file-link"></p>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
