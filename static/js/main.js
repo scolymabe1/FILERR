@@ -77,10 +77,14 @@ document.addEventListener("DOMContentLoaded", () => {
             h2.textContent = '✅ Файл загружен! Кликните по ссылке, чтобы скопировать.';
             fileLink.innerHTML = `<span id="copy-link" style="cursor:pointer; color:blue; text-decoration:underline;">${data.url}</span>`;
         } else {
-          throw new Error('Сервер не вернул ссылку');
+            throw new Error('Сервер не вернул ссылку');
         }
-        const copyLink = document.getElementById('copy-link');
-        copyLink.addEventListener('click', () => {
+        fileLink.textContent = data.url;
+        fileLink.style.cursor = 'pointer';
+        fileLink.style.color = 'blue';
+        fileLink.style.textDecoration = 'underline';
+
+        fileLink.onclick = () => {
             navigator.clipboard.writeText(data.url)
             .then(() => {
                 h2.textContent = '✅ Ссылка скопирована в буфер обмена!';
@@ -91,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(() => {
                 h2.textContent = '❌ Не удалось скопировать ссылку.';
             });
-        });
+        };
     })
     .catch(err => {
         h2.textContent = '❌ Ошибка: ' + err.message;
