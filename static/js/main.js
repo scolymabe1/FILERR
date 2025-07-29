@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (data.url) {
                 h2.textContent = '✅ Файл загружен! Кликните по ссылке, чтобы скопировать.';
-                fileLink.textContent = data.url;
+                fileLink.textContent = 'http://withoutgg.duckdns.org:5000' + data.url;
                 fileLink.style.cursor = 'pointer';
                 fileLink.style.color = 'blue';
                 fileLink.style.textDecoration = 'underline';
