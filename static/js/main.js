@@ -75,13 +75,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (data.url) {
                 h2.textContent = '✅ Файл загружен! Кликните по ссылке, чтобы скопировать.';
-                fileLink.textContent = 'http://withoutgg.duckdns.org:5000' + data.url;
+                fileLink.textContent = data.url;
                 fileLink.style.cursor = 'pointer';
                 fileLink.style.color = 'blue';
                 fileLink.style.textDecoration = 'underline';
 
                 fileLink.onclick = () => {
-                    copyTextToClipboard(data.url);
+                    copyTextToClipboard('http://withoutgg.duckdns.org:5000' + data.url);
                 };
             } else {
                 throw new Error('Сервер не вернул ссылку');
