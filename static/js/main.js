@@ -85,16 +85,16 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(() => {
                 h2.textContent = '✅ Ссылка скопирована в буфер обмена!';
                 setTimeout(() => {
-                h2.textContent = '✅ Файл загружен! Кликните по ссылке, чтобы скопировать.';
+                    h2.textContent = '✅ Файл загружен! Кликните по ссылке, чтобы скопировать.';
                 }, 2000);
             })
             .catch(() => {
                 h2.textContent = '❌ Не удалось скопировать ссылку.';
             });
         });
-      })
-      .catch(err => {
+    })
+    .catch(err => {
         h2.textContent = '❌ Ошибка: ' + err.message;
-      });
+    });
   }
 });
