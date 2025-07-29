@@ -74,8 +74,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await res.json();
 
             if (data.url) {
-                h2.textContent = '✅ Файл загружен! Кликните по ссылке, чтобы скопировать.';
-                fileLink.textContent = data.url;
+                h2.textContent = 'Файл загружен!';
+                fileLink.textContent = 'Скопировать';
                 fileLink.style.cursor = 'pointer';
                 fileLink.style.color = 'blue';
                 fileLink.style.textDecoration = 'underline';
