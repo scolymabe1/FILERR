@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const fileInput = document.getElementById('fileInput');
     const fileLink = document.getElementById('file-link');
 
-    const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
-    const MAX_SIZE_MB = 10;
+    const allowedTypes = ['image/gif', 'image/jpg', 'image/jpeg', 'image/png', 'application/zip', 'application/rar', 'application/7zip'];
+    const MAX_SIZE_MB = 300;
     const MAX_SIZE = MAX_SIZE_MB * 1024 * 1024;
 
     dropArea.addEventListener('click', () => fileInput.click());
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!file) return;
 
         if (!allowedTypes.includes(file.type)) {
-            h2.textContent = '❌ Неверный тип файла';
+            h2.textContent = 'Неверный тип файла';
             fileInput.value = '';
             return;
         }
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         })
         .catch(err => {
-            h2.textContent = '❌ Ошибка: ' + err.message;
+            h2.textContent = 'Ошибка: ' + err.message;
         });
     }
 
@@ -130,13 +130,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function showCopySuccess() {
-        h2.textContent = '✅ Ссылка скопирована в буфер обмена!';
+        h2.textContent = 'Ссылка скопирована в буфер обмена!';
         setTimeout(() => {
-            h2.textContent = '✅ Файл загружен! Кликните по ссылке, чтобы скопировать.';
+            h2.textContent = 'Файл загружен!';
         }, 2000);
     }
 
     function showCopyError() {
-        h2.textContent = '❌ Не удалось скопировать ссылку.';
+        h2.textContent = 'Не удалось скопировать ссылку.';
     }
 });
