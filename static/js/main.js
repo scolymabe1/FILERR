@@ -9,10 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const MAX_SIZE_MB = 10;
     const MAX_SIZE = MAX_SIZE_MB * 1024 * 1024;
 
-    // Клик по области — открыть окно выбора файла
     dropArea.addEventListener('click', () => fileInput.click());
 
-    // Подсветка при dragover
     ['dragenter', 'dragover'].forEach(eventName => {
         dropArea.addEventListener(eventName, e => {
             e.preventDefault();
@@ -20,7 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Убрать подсветку при dragleave и drop
     ['dragleave', 'drop'].forEach(eventName => {
         dropArea.addEventListener(eventName, e => {
             e.preventDefault();
@@ -28,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Обработка файла при drop
     dropArea.addEventListener('drop', e => {
         e.preventDefault();
         if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
@@ -37,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Обработка выбора файла через input
     fileInput.addEventListener('change', () => {
         if (fileInput.files && fileInput.files.length > 0) {
             handleFile(fileInput.files[0]);
@@ -86,16 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 fileLink.style.textDecoration = 'underline';
 
                 fileLink.onclick = () => {
-                    navigator.clipboard.writeText(data.url)
-                    .then(() => {
-                        h2.textContent = '✅ Ссылка скопирована в буфер обмена!';
-                        setTimeout(() => {
-                            h2.textContent = '✅ Файл загружен! Кликните по ссылке, чтобы скопировать.';
-                        }, 2000);
-                    })
-                    .catch(() => {
-                        h2.textContent = '❌ Не удалось скопировать ссылку.';
-                    });
+                    copyTextToClipboard(data.url);
                 };
             } else {
                 throw new Error('Сервер не вернул ссылку');
@@ -104,5 +90,53 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(err => {
             h2.textContent = '❌ Ошибка: ' + err.message;
         });
+    }
+
+    function copyTextToClipboard(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                    showCopySuccess();
+                })
+                .catch(() => {
+                    fallbackCopyText(text);
+                });
+        } else {
+            fallbackCopyText(text);
+        }
+    }
+
+    function fallbackCopyText(text) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';  // чтобы не скакало окно при фокусе
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+
+        try {
+            const successful = document.execCommand('copy');
+            if (successful) {
+                showCopySuccess();
+            } else {
+                showCopyError();
+            }
+        } catch (err) {
+            showCopyError();
+        }
+
+        document.body.removeChild(textarea);
+    }
+
+    function showCopySuccess() {
+        h2.textContent = '✅ Ссылка скопирована в буфер обмена!';
+        setTimeout(() => {
+            h2.textContent = '✅ Файл загружен! Кликните по ссылке, чтобы скопировать.';
+        }, 2000);
+    }
+
+    function showCopyError() {
+        h2.textContent = '❌ Не удалось скопировать ссылку.';
     }
 });
